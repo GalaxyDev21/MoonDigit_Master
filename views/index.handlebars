@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Hunch - Intelligent Finance Analysis</title>
+
+    <meta name="description" content="Hunch is an interactive stock market & cryptocurrency analysis platform for the average investor.">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="icon" type="image/png" sizes="192x192" href='img/brain.png'>
+
+    <!-- END Icons -->
+
+    <!-- Stylesheets -->
+    <!-- Bootstrap is included in its original form, unaltered -->
+    <link rel="stylesheet" href='frontend/css/bootstrap.min.css'>
+
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href='frontend/css/plugins.css'>
+
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href='frontend/css/main.css'>
+
+    <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+    <link rel="stylesheet" href='frontend/css/themes.css'>
+    <!-- END Stylesheets -->
+
+    <!-- Modernizr (browser feature detection library) -->
+    <script src="frontend/js/vendor/modernizr-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <!-- Modal -->
+    <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="memberModalLabel">Thank you for trying Hunch!</h4>
+
+                </div>
+                <div class="modal-body">
+                    <p>We are currently in alpha.
+                        <BR>If you've been invited to try it out, do keep in mind that we're making improvements and during this
+                        period, your input is valuable!</p>
+                    <p>There is a link at the top of the dashboard to give feedback and we would appreciate it if you make us
+                        known of anything you find.</p>
+                    <br>
+                    <p>Have fun investing!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Container -->
+    <!-- In the PHP version you can set the following options from inc/config file -->
+    <!-- 'boxed' class for a boxed layout -->
+    <div id="page-container" class="boxed">
+        <!-- Site Header -->
+        <header>
+            <div class="container">
+                <!-- Site Logo -->
+                <a href="index.html" class="site-logo">
+                    <img src='img/brain.png' style="max-width:30px;">
+                    <strong>Hunch</strong>
+                </a>
+                <!-- END Site Logo -->
+
+                <!-- Site Navigation -->
+                <nav>
+                    <!-- Menu Toggle -->
+                    <!-- Toggles menu on small screens -->
+                    <a href="javascript:void(0)" class="btn btn-default site-menu-toggle visible-xs visible-sm">Menu</a>
+                    <!-- END Menu Toggle -->
+
+                    <!-- Main Menu -->
+                    <ul class="site-nav">
+
+                        <li>
+                            <a href="#" class="active">Welcome</a>
+                        </li>
+                        <li>
+                            <a href="javascript:notReady()">Features</a>
+                        </li>
+                        <li>
+                            <a href="javascript:notReady()">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="javascript:notReady()">Contact</a>
+                        </li>
+                        <li>
+                            <a href="javascript:notReady()">Blog</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="site-nav-sub">
+                                <i class="fa fa-angle-down site-nav-arrow"></i>Docs</a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:notReady()">Data Viz</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:notReady()">Machine Learning</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:notReady()">Robinhood</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:notReady()">Coinbase</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:notReady()">Social</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:notReady()">FAQ</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            {{#if user}}
+                            <a href="/dashboard" class="featured">Dashboard
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                            {{else}}
+                            <a href="/users/login" class="featured">Login
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                            {{/if}}
+                        </li>
+                    </ul>
+                    <!-- END Main Menu -->
+                </nav>
+                <!-- END Site Navigation -->
+            </div>
+        </header>
+        <!-- END Site Header -->
+
+        <!-- Intro + Action -->
+        <section class="site-section site-section-top site-section-light themed-background-dark-default">
+            <div class="container">
+                <div class="push text-center">
+                    <h1 class="animation-fadeInQuick2Inv">
+                        <strong>Finally, an investment platform for the future.</strong>
+                    </h1>
+                    <h2 class="text-light-op animation-fadeInQuickInv push-bit">
+                        <strong>Built for the average trader, with intelligent features.</strong>
+                    </h2>
+                    <a href="#register" class="btn btn-lg btn-success push-right-left">
+                        <strong>I want in</strong>
+                    </a>
+                    <a href="#" class="btn btn-lg btn-info push-right-left">
+                        <strong>Show Me</strong>
+                    </a>
+                </div>
+                <div class="site-promo-img visibility-none" data-toggle="animation-appear" data-animation-class="animation-slideUpQuick"
+                    data-element-offset="0">
+                    <img src='img/screenshot.png' alt="">
+                </div>
+            </div>
+        </section>
+        <!-- END Intro + Action -->
+
+        <!-- Promo Features -->
+        <section class="site-content site-section border-bottom">
+            <div class="container">
+                <div class="row row-items">
+                    <div class="col-sm-4 text-center">
+                        <a href="javascript:void(0)" class="feature themed-background-social animation-fadeInQuickInv" data-toggle="animation-appear"
+                            data-animation-class="animation-fadeInQuickInv" data-element-offset="-100">
+                            <i class="gi gi-iphone_shake"></i>
+                        </a>
+                        <h2 class="site-heading h4 feature-heading visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick2Inv"
+                            data-element-offset="-20">
+                            <strong>100% Cross Platform</strong>
+                        </h2>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <a href="javascript:void(0)" class="feature themed-background-info animation-fadeInQuickInv" data-toggle="animation-appear"
+                            data-animation-class="animation-fadeInQuickInv" data-element-offset="-100">
+                            <i class="gi gi-electricity"></i>
+                        </a>
+                        <h2 class="site-heading h4 feature-heading visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick2Inv"
+                            data-element-offset="-20">
+                            <strong>Robinhood & Coinbase Integration</strong>
+                        </h2>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <a href="javascript:void(0)" class="feature themed-background-success animation-fadeInQuickInv" data-toggle="animation-appear"
+                            data-animation-class="animation-fadeInQuickInv" data-element-offset="-100">
+                            <i class="fa fa-check"></i>
+                        </a>
+                        <h2 class="site-heading h4 feature-heading visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick2Inv"
+                            data-element-offset="-20">
+                            <strong>99.99% Uptime & Encrypted</strong>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END Promo Features -->
+
+        <!-- Promo #1 -->
+        <section class="site-section site-content border-bottom overflow-hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 push">
+                        <h2 class="site-heading">
+                            <strong>Powerful machine learning assistance</strong>
+                        </h2>
+                        <p class="feature-text text-muted push">
+                            <strong>Hunch</strong> is at your service to answer huge questions about market fundmentals in data models
+                            that are easy to understand, help you make your next move, and do it quickly.</p>
+                        <h2 class="site-heading">
+                            <strong>News, social media, and an intelligent community</strong>
+                        </h2>
+                        <p class="feature-text text-muted">
+                            <strong>Hunch</strong> will play a role in your research phase starting by scrutinizing the news for
+                            subtle details and sentiment. Our community of traders like you help our analysis of news and
+                            the social zeitgeist become more accurate over time.</p>
+                    </div>
+                    <div class="col-sm-6 clearfix push">
+                        <img src="frontend/img/placeholders/screenshots/promo_1.png" alt="" class="img-responsive pull-right visibility-none" data-toggle="animation-appear"
+                            data-animation-class="animation-fadeInLeft" data-element-offset="-200" style="max-width: 450px; margin-right: -130px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END Promo #1 -->
+
+        <!-- Quick Stats -->
+        <section class="site-content site-section themed-background-dark">
+            <div class="container">
+                <!-- Stats Row -->
+                <!-- CountTo (initialized in js/app.js), for more examples you can check out https://github.com/mhuggins/jquery-countTo -->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="counter site-block">
+                            <span data-toggle="countTo" data-to="1000" data-after="+"></span>
+                            <small>GB of stock market & cryptocurrency data from over 8 indices & nations</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="counter site-block">
+                            <span data-toggle="countTo" data-to="2632" data-after="+"></span>
+                            <small>Successful, happy traders and growing</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="counter site-block">
+                            <span data-toggle="countTo" data-to="1" data-after=""></span>
+                            <small>Tool to do everything you need to make more money, easier</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Stats Row -->
+            </div>
+        </section>
+        <!-- END Quick Stats -->
+
+        <!-- Promo #2 -->
+        <section class="site-section site-content border-bottom overflow-hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-push-6 push">
+                        <h2 class="site-heading">
+                            <strong>Documentation & 5-Minute Tutorial</strong>
+                        </h2>
+                        <p class="feature-text text-muted push">Don't know where to start? We've got you covered. All of our features and algorithms are explained,
+                            in plain English, in our docs. You can get up and running in our 5 minute video guide.</p>
+                        <h2 class="site-heading">
+                            <strong>Conscious Updates</strong>
+                        </h2>
+                        <p class="feature-text text-muted">We listen to our community.
+                            <strong>Hunch</strong> is, first and foremost, an analysis platform for traders by traders. Disrupting
+                            the way things work is the way
+                            <i>we</i> work and so we need your feedback to push the envelope.</p>
+                    </div>
+                    <div class="col-sm-6 col-sm-pull-6 clearfix push">
+                        <img src="frontend/img/placeholders/screenshots/promo_2.png" alt="" class="img-responsive pull-left visibility-none" data-toggle="animation-appear"
+                            data-animation-class="animation-fadeInRight" data-element-offset="-200" style="max-width: 450px; margin-left: -130px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END Promo #2 -->
+
+        <!-- Sign Up Action -->
+        <section class="site-content site-section themed-background-dark" id="register">
+            <div class="container">
+                <h2 class="site-heading text-center text-light">Sign up for the beta and get a
+                    <strong>30% discount</strong> on launch!</h2>
+                <div class="site-block text-center">
+                    <form action="/users/register" method="post" class="form-inline" action="/users/register" id="form-register">
+                        <div class="form-group">
+                            <label class="sr-only" for="register-email">Email address</label>
+                            <input type="text" id="email" name="email" class="form-control input-lg" placeholder="your email">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="register-username">Username</label>
+                            <input type="text" id="username" name="username" class="form-control input-lg" placeholder="your username">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="register-password">Password</label>
+                            <input type="password" id="password" name="password" class="form-control input-lg" placeholder="...and a password!">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-success">Get
+                                <strong>Hunch</strong> Started!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- END Sign Up Action -->
+
+        <!-- Promo #3 -->
+        <section class="site-section site-content border-bottom overflow-hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 push">
+                        <h2 class="site-heading">
+                            <strong>Free Version</strong>
+                        </h2>
+                        <p class="feature-text text-muted push">Those of us who are frugal investors still have a home at Hunch. You can log in and connect to your
+                            Robinhood, Coinbase accounts but our community, analysis features, and news modules will be locked
+                            behind paid subscription.</p>
+                        <h2 class="site-heading">
+                            <strong>Support</strong>
+                        </h2>
+                        <p class="feature-text text-muted">We have a 24/7 team of engineers on standby to solve any problem. We do not claim responsibility
+                            for Robinhood or Coinbase operations and we do not offer specific financial advice. All claims
+                            about the market are the opinions of Hunch and its team, or derived from public market data and
+                            accompanying public algorithms, and you should always do responsible research when investing
+                            with your money.</p>
+                    </div>
+                    <div class="col-sm-6 clearfix push">
+                        <img src='frontend/img/placeholders/screenshots/promo_3.png' alt="" class="img-responsive pull-right visibility-none" data-toggle="animation-appear"
+                            data-animation-class="animation-fadeInLeft" data-element-offset="-200" style="max-width: 450px; margin-right: -130px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END Promo #3 -->
+
+        <!-- Testimonials -->
+        {{!-- <section class="site-content site-section themed-background-muted">
+            <div class="container">
+                <div id="testimonials-carousel" class="carousel slide carousel-html" data-ride="carousel" data-interval="4000">
+                    <div class="carousel-inner text-center">
+                        <div class="active item">
+                            <blockquote>
+                                <p>
+                                    <img src='frontend/img/placeholders/avatars/avatar13@2x.jpg' alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
+                                </p>
+                                <h3>I can't stop thinking about getting on Hunch, it's even
+                                    <i>more</i> addicting to invest now.</h3>
+                                <footer>
+                                    <em>
+                                        <strong>Maria Clark</strong>, http://example.com/</em>
+                                </footer>
+                            </blockquote>
+                        </div>
+                        <div class="item">
+                            <blockquote>
+                                <p>
+                                    <img src='frontend/img/placeholders/avatars/avatar2@2x.jpg' alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
+                                </p>
+                                <h3>There is no better tool than Hunch for investing. It's everything you'd need if you use Robinhood.</h3>
+                                <footer>
+                                    <em>
+                                        <strong>Roger Santos</strong>, http://example.com/</em>
+                                </footer>
+                            </blockquote>
+                        </div>
+                        <div class="item">
+                            <blockquote>
+                                <p>
+                                    <img src='frontend/img/placeholders/avatars/avatar1@2x.jpg' alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
+                                </p>
+                                <h3>I like the free version because it lets me see my fundamentals data online in one spot.</h3>
+                                <footer>
+                                    <em>
+                                        <strong>Edward Duncan</strong>, http://example.com/</em>
+                                </footer>
+                            </blockquote>
+                        </div>
+                        <div class="item">
+                            <blockquote>
+                                <p>
+                                    <img src='frontend/img/placeholders/avatars/avatar7@2x.jpg' alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
+                                </p>
+                                <h3>This is the #1 investment tool for millenials and more experienced traders alike. Way to
+                                    raise the bar, folks.</h3>
+                                <footer>
+                                    <em>
+                                        <strong>Scott Gray</strong>, http://example.com/</em>
+                                </footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> --}}
+        <!-- END Testimonials -->
+
+        <!-- Footer -->
+        <footer class="site-footer site-section site-section-light">
+            <div class="container">
+                <!-- Footer Links -->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h4 class="footer-heading">Company</h4>
+                        <ul class="footer-nav ul-breath list-unstyled">
+                            <li>
+                                <a href="javascript:notReady()">About Us</a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()">Our Team</a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()">Memberships</a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()">Terms &amp; Conditions</a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()">Privacy Policy</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4 class="footer-heading">Need support?</h4>
+                        <ul class="footer-nav footer-nav-links list-inline">
+                            <li>
+                                <a href="javascript:notReady()">
+                                    <i class="fa fa-fw fa-book"></i> Hunch Documentation</a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()">
+                                    <i class="fa fa-fw fa-support"></i> FAQ</a>
+                            </li>
+                        </ul>
+                        <h4 class="footer-heading">We are social!</h4>
+                        <ul class="footer-nav footer-nav-links list-inline">
+                            <li>
+                                <a href="javascript:notReady()" class="social-facebook" data-toggle="tooltip" title="Like our Facebook page">
+                                    <i class="fa fa-fw fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()" class="social-twitter" data-toggle="tooltip" title="Follow us on Twitter">
+                                    <i class="fa fa-fw fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()" class="social-google-plus" data-toggle="tooltip" title="Like our Google+ page">
+                                    <i class="fa fa-fw fa-google-plus"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()" class="social-dribbble" data-toggle="tooltip" title="Follow us on Dribbble">
+                                    <i class="fa fa-fw fa-dribbble"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:notReady()" class="social-youtube" data-toggle="tooltip" title="Subscribe to our Youtube channel">
+                                    <i class="fa fa-fw fa-youtube-play"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4 class="footer-heading">Docs Search</h4>
+                        <form class="form-inline" onsubmit="javascript:notReady()">
+                            <div class="form-group">
+                                <label class="sr-only" for="register-email">Documentation Page...</label>
+                                <div class="input-group">
+                                    <input type="email" id="register-email" name="register-email" class="form-control" placeholder="Documentation Page...">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                        <h4 class="footer-heading">
+                            <a href="#">Hunch - Your Intelligent Analysis Platform</a>
+                        </h4>
+                        <em>
+                            <span id="year-copy"></span>
+                        </em> &copy; by
+                        <strong>Hunch</strong>
+                        </a>
+                    </div>
+                </div>
+                <!-- END Footer Links -->
+            </div>
+        </footer>
+        <!-- END Footer -->
+    </div>
+    <!-- END Page Container -->
+
+    <!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
+    <a href="#" id="to-top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+
+    <!-- jQuery, Bootstrap, jQuery plugins and Custom JS code -->
+    <script src='frontend/js/vendor/jquery-2.2.4.min.js'></script>
+    <script src='frontend/js/vendor/bootstrap.min.js'></script>
+    <script src='frontend/js/plugins.js'></script>
+    <script src='frontend/js/app.js'></script>
+    <script src='backend/js/pages/readyRegister.js'></script>
+    <script src="backend/js/plugins.js"></script>
+    <script>
+    function notReady(){
+        $.bootstrapGrowl("Coming soon!", {
+        ele: 'body', // which element to append to
+        type: 'warning', // ('success', 'info', 'warning', 'danger')
+        offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+        align: 'right', // ('left', 'right', or 'center')
+        width: 250, // (integer, or 'auto')
+        delay: 4000, // in ms
+        allow_dismiss: true,
+        stackup_spacing: 10 // spacing between consecutively stacked growls
+        });
+    }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#memberModal').modal('show');
+        });
+    </script>
+</body>
+
+</html>

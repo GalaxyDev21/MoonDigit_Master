@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Hunch - Intelligent Finance Analysis</title>
+
+    <meta name="description" content="Hunch is an interactive stock market & cryptocurrency analysis platform for the average investor.">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="icon" type="image/png" sizes="192x192" href='img/brain.png'>
+
+    <!-- END Icons -->
+
+    <!-- Stylesheets -->
+    <!-- Bootstrap is included in its original form, unaltered -->
+    <link rel="stylesheet" href="../backend/css/bootstrap.min.css">
+
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href='../backend/css/plugins.css'>
+
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href='../backend/css/main.css'>
+
+    <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+    <link rel="stylesheet" href='../backend/css/themes.css'>
+    <!-- END Stylesheets -->
+
+    <!-- Modernizr (browser feature detection library) -->
+    <script src='../backend/js/vendor/modernizr-3.3.1.min.js'></script>
+</head>
+
+<body>
+    <!-- Login Container -->
+    <div id="login-container">
+        <!-- Login Header -->
+        <h1 class="h2 text-light text-center push-top-bottom animation-slideDown">
+            <img src='../img/brain.png' style="max-width:30px;">
+            <strong>Welcome to Hunch</strong>
+        </h1>
+        <!-- END Login Header -->
+
+        <!-- Login Block -->
+        <div class="block animation-fadeInQuickInv">
+            <!-- Login Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                    <a href="page_ready_reminder.html" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left"
+                        title="Forgot your password?">
+                        <i class="fa fa-exclamation-circle"></i>
+                    </a>
+                    <!-- Just uncomment when working <a href="/register/" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Create new account"><i class="fa fa-plus"></i></a> -->
+                    <a href="/#register" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Create new account">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <h2>Please Login</h2>
+            </div>
+            <!-- END Login Title -->
+
+            <!-- Login Form -->
+            <form id="form-login" action="/users/login" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Your username...">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Your password...">
+                    </div>
+                </div>
+                <div class="form-group form-actions">
+                    <div class="col-xs-8">
+                        <label class="csscheckbox csscheckbox-primary">
+                            <input type="checkbox" id="login-remember-me" name="login-remember-me">
+                            <span></span>
+                        </label>
+                        Remember Me?
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <button type="submit" class="btn btn-effect-ripple btn-sm btn-primary">
+                            <i class="fa fa-check"></i> Let's Go</button>
+                    </div>
+                </div>
+            </form>
+            <!-- END Login Form -->
+        </div>
+        <!-- END Login Block -->
+
+        <!-- Footer -->
+        <footer class="text-muted text-center animation-pullUp">
+            <small>
+                <span id="year-copy"></span> &copy;
+                <a href="/" target="_blank">Hunch</a>
+            </small>
+        </footer>
+        <!-- END Footer -->
+    </div>
+    <!-- END Login Container -->
+
+    <!-- jQuery, Bootstrap, jQuery plugins and Custom JS code -->
+    <script src='../backend/js/vendor/jquery-2.2.4.min.js'></script>
+    <script src='../backend/js/vendor/bootstrap.min.js'></script>
+    <script src='../backend/js/plugins.js'></script>
+    <script src='../backend/js/app.js'></script>
+    <script src='../backend/js/pages/uiWidgets.js'></script>
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src='../backend/js/pages/readyLogin.js'></script>
+    <script>$(function () { ReadyLogin.init(); });</script>
+</body>
+
+</html>

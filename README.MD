@@ -1,0 +1,1 @@
+Need to write this but basically get mongo running and then `npm i`, `nodemon`. Then head over to localhost:4000

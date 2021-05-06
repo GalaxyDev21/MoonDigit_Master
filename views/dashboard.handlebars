@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Hunch - Intelligent Finance Analysis</title>
+
+    <meta name="description" content="Hunch is an interactive stock market & cryptocurrency analysis platform for the average investor.">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+
+    <link rel="icon" type="image/png" sizes="192x192" href="../img/brain.png">
+
+    <!-- END Icons -->
+
+    <!-- Stylesheets -->
+    <!-- Bootstrap is included in its original form, unaltered -->
+    <link rel="stylesheet" href="../backend/css/bootstrap.min.css">
+
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href="../backend/css/plugins.css">
+
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href="../backend/css/main.css">
+
+
+    <link rel="stylesheet" href="../backend/css/easy-autocomplete.min.css" />
+
+
+    <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+    <style>
+        pre {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.42857143;
+            word-break: break-all;
+            word-wrap: break-word;
+            color: #333;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* #page-container.header-fixed-top #page-content {
+    padding-top: 20px;
+}
+#page-container.header-fixed-top #page-content {
+    padding-top: 20px;
+} */
+    </style>
+    <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+    <link rel="stylesheet" href="../backend/css/themes.css">
+    <!-- END Stylesheets -->
+
+    <!-- Modernizr (browser feature detection library) -->
+    <script src="../backend/js/vendor/modernizr-3.3.1.min.js"></script>
+
+    <style>
+        .sidebar-title {
+
+            background-color: rgb(50, 202, 83);
+        }
+
+        .navbar.navbar-inverse,
+        .navbar.navbar-inverse.navbar-glass:hover {
+            background: #aee8ff;
+        }
+    </style>
+    <style type="text/css">
+        .jqstooltip {
+            width: auto !important;
+            height: auto !important;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            visibility: hidden;
+            background: #000000;
+            color: white;
+            font-size: 11px;
+            text-align: left;
+            white-space: nowrap;
+            padding: 5px;
+            z-index: 10000;
+        }
+
+        .jqsfield {
+            color: white;
+            font: 10px arial, san serif;
+            text-align: left;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- Page Wrapper -->
+    <!-- In the PHP version you can set the following options from inc/config file -->
+    <!--
+            Available classes:
+
+            'page-loading'      enables page preloader
+        -->
+    <div id="page-wrapper" class="page-loading">
+        <!-- Preloader -->
+        <!-- Preloader functionality (initialized in js/app.js) - pageLoading() -->
+        <!-- Used only if page preloader enabled from inc/config (PHP version) or the class 'page-loading' is added in #page-wrapper element (HTML version) -->
+        <div class="preloader">
+            <div class="inner">
+                <!-- Animation spinner for all modern browsers -->
+                <div class="preloader-spinner themed-background hidden-lt-ie10"></div>
+
+                <!-- Text for IE9 -->
+                <h3 class="text-primary visible-lt-ie10">
+                    <strong>Loading..</strong>
+                </h3>
+            </div>
+        </div>
+        <!-- END Preloader -->
+
+        <div id="page-container" class="header-fixed-top sidebar-visible-lg-full">
+            <!-- Alternative Sidebar -->
+            <div id="sidebar-alt" tabindex="-1" aria-hidden="true">
+                <!-- Toggle Alternative Sidebar Button (visible only in static layout) -->
+                <a href="javascript:void(0)" id="sidebar-alt-close" onclick="App.sidebar('toggle-sidebar-alt');">
+                    <i class="fa fa-times"></i>
+                </a>
+
+                <!-- Wrapper for scrolling functionality -->
+                <div id="sidebar-scroll-alt">
+                    <!-- Sidebar Content -->
+                    <div class="sidebar-content">
+                        <!-- Profile -->
+                        <div class="sidebar-section">
+                            <h2 class="text-light">Profile</h2>
+                            <form action="index.html" method="post" class="form-control-borderless" onsubmit="return false;">
+                                <div class="form-group">
+                                    <label for="side-profile-email">Email</label>
+                                    <input type="email" id="side-profile-email" name="side-profile-email" class="form-control" value="{{email}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile-password">New Password</label>
+                                    <input type="password" id="profile-password" name="side-profile-password" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile-password-confirm">Confirm New Password</label>
+                                    <input type="password" id="profile-password-confirm" name="side-profile-password-confirm" class="form-control">
+                                </div>
+                                <div class="form-group remove-margin">
+                                    <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="App.sidebar('close-sidebar-alt');">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END Profile -->
+
+                        <!-- Settings -->
+                        <div class="sidebar-section">
+                            <h2 class="text-light">Settings</h2>
+                            <form action="index.html" method="post" class="form-horizontal form-control-borderless" onsubmit="return false;">
+                                <div class="form-group">
+                                    <label class="col-xs-7 control-label-fixed">Robinhood</label>
+                                    <div class="col-xs-5">
+                                        <label class="switch switch-success">
+                                            <input type="checkbox" checked>
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-7 control-label-fixed">Coinbase</label>
+                                    <div class="col-xs-5">
+                                        <label class="switch switch-success">
+                                            <input type="checkbox" checked>
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-7 control-label-fixed">News Source</label>
+                                    <br>
+                                    <div class="col-xs-12">
+                                        <select id="example-select" name="example-select" class="form-control" size="1">
+                                            <option value="bloomberg">Bloomberg</option>
+                                            <option value="economist">The Economist</option>
+                                            <option value="business-insider">Business Insider</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group remove-margin">
+                                    <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="App.sidebar('close-sidebar-alt');">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END Settings -->
+                    </div>
+                    <!-- END Sidebar Content -->
+                </div>
+                <!-- END Wrapper for scrolling functionality -->
+            </div>
+            <!-- END Alternative Sidebar -->
+
+
+            <!-- Main Sidebar -->
+            <div id="sidebar">
+                <!-- Sidebar Brand -->
+                <div id="sidebar-brand" class="themed-background">
+                    <a href="/dashboard" class="sidebar-title">
+                        <img src="../img/brain.png" style="max-width:20px;">
+                        <span class="sidebar-nav-mini-hide">Hunch
+                            <strong> Dashboard</strong>
+                        </span>
+                    </a>
+                </div>
+                <!-- END Sidebar Brand -->
+
+                <!-- Wrapper for scrolling functionality -->
+                <div id="sidebar-scroll">
+                    <!-- Sidebar Content -->
+                    <div class="sidebar-content">
+                        <!-- Trigger the modal with a button -->
+                        <!-- Sidebar Navigation -->
+                        <ul class="sidebar-nav">
+                            <li>
+                                <a href="/dashboard">
+                                    <i class="gi gi-compass sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-separator">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </li>
+                            <li>
+                                <a href="#" class="sidebar-nav-menu">
+                                    <i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                    <i class="fa fa-line-chart sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">Analysis</span>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="javascript:notReady()">Global Performance</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:notReady()">Industry Clusters</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:notReady()">Price Prediction</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="sidebar-nav-menu">
+                                    <i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                    <i class="gi gi-comments sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">Contact</span>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="javascript:suggestions()">Suggestions</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:reportBug()">Bug Report</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:accountProblem()">Problem With My Account</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/news" class="sidebar-nav-menu">
+                                    <i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                    <i class="hi hi-star-empty sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">Premium</span>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="javascript:notReady()">Upgrade to Premium</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:notReady()">Cancel My Subsciption</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/news" class="sidebar-nav-menu">
+                                    <i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                    <i class="hi hi-flash sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">News & Patches</span>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="javascript:notReady()">Latest Blog Post</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:notReady()">Patch Notes</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
+                                <div class="text-center">
+                                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Ga3maNZ0x0w" frameBorder="0">
+                                    </iframe>
+                                    <small>
+                                        <strong>Server Status</strong>
+                                    </small>
+                                    <br>
+                                    <br>
+                                </div>
+                                <center>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 90%">90%</div>
+                                    </div>
+                                </center>
+                                <div class="text-center">
+                                    <small>
+                                        <span id="year-copy">2014-17</span> ©
+                                        <a href="" target="_blank">Hunch v0.1.0</a>
+                                    </small>
+                                </div>
+                            </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- END Main Sidebar -->
+
+
+            <!-- Main Container -->
+            <div id="main-container">
+
+                <header class="navbar navbar-inverse">
+
+
+                    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+                    <style>
+                        .ui-state-active,
+                        .ui-widget-content .ui-state-active,
+                        .ui-widget-header .ui-state-active,
+                        a.ui-button:active,
+                        .ui-button:active,
+                        .ui-button.ui-state-active:hover {
+                            border: 1px solid #dae0e8 !important;
+                            background: #caeefd !important;
+                            font-weight: normal;
+                            color: #000;
+                            /**max-height: 200px;**/
+                        }
+                    </style>
+
+                    <ul class="nav navbar-nav-custom" onLoad="initClock()">
+                        <!-- Main Sidebar Toggle Button -->
+                        <li>
+                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                                <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                                <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <button class="btn btn-xs btn-primary btn-effect-ripple" style="margin-top:13px !important;padding-left:5px;" onClick="javascript:notReady()">
+                                <small> Refer a friend!</small>
+                            </button>
+                        </li>
+                        <!-- END Main Sidebar Toggle Button -->
+
+                        <!-- Header Link -->
+                        <li class="hidden-xs animation-fadeInQuick">
+                        </li>
+                        <!-- END Header Link -->
+                    </ul>
+                    <!-- END Left Header Navigation -->
+
+                    <!-- Right Header Navigation -->
+                    <ul class="nav navbar-nav-custom pull-right">
+                        <small style="float:left;padding:15px;">
+                            <span class="label label-info">
+                                <i class="hi hi-volume-up" data-toggle="tooltip" data-placement="left" title="What's the price of..."></i>
+                            </span>
+                        </small>
+                        <li style="padding-top:5px;">
+                            <span id="ltcLabel" class="label label-success">
+                                LTC
+                            </span>
+                            <br>
+                            <span class="label" id="ltcPrice" style="padding-right:5px;padding-left:5px;">
+                            </span>
+                        </li>
+                        <li>
+                            <div id="ltcChart" style="vertical-align: middle; display: inline-block; width: 100px; min-height: inherit;">
+                            </div>
+                        </li>
+                        <li style="padding-top:5px;">
+                            <span id="ethLabel" class="label label-success">
+                                ETH
+                            </span>
+                            <br>
+                            <span class="label" id="ethPrice" style="padding-right:5px;padding-left:5px;">
+                            </span>
+                        </li>
+                        <li>
+                            <div id="ethChart" style="vertical-align: middle; display: inline-block; width: 100px; min-height: inherit;">
+                            </div>
+                        </li>
+                        <li style="padding-top:5px;">
+                            <span id="btcLabel" class="label label-success">
+                                BTC
+                            </span>
+                            <br>
+                            <span class="label" id="btcPrice" style="padding-right:5px;padding-left:5px;">
+                            </span>
+                        </li>
+                        <li>
+                            <div id="btcChart" style="vertical-align: middle; display: inline-block; width: 100px; min-height: inherit;">
+                            </div>
+                        </li>
+                        <li>
+                            <form action="javascript:searchTix(tix.value);" class="navbar-form-custom">
+                                <input type="text" id="tix" name="tix" class="form-control input-typeahead" autocomplete="off" placeholder="Search tix">
+                            </form>
+                        </li>
+
+                        <!-- END Search Form -->
+
+                        <!-- Alternative Sidebar Toggle Button -->
+                        <li>
+                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');this.blur();">
+                                <i class="gi gi-settings"></i>
+                            </a>
+                        </li>
+                        <!-- END Alternative Sidebar Toggle Button -->
+
+                        <!-- User Dropdown -->
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="{{photo}}" alt="avatar">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-header">
+                                    <strong>{{username}}</strong>
+                                </li>
+                                <li>
+                                    <a href="page_app_email.html">
+                                        <i class="fa fa-inbox fa-fw pull-right"></i>
+                                        Inbox
+                                    </a>
+                                </li>
+                                <li class="divider">
+                                    <li>
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');">
+                                                <i class="gi gi-settings fa-fw pull-right"></i>
+                                                Settings
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/users/lock">
+                                                <i class="gi gi-lock fa-fw pull-right"></i>
+                                                Lock Account
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:logout()">
+                                                <i class="fa fa-power-off fa-fw pull-right"></i>
+                                                Log out
+                                            </a>
+                                        </li>
+                            </ul>
+                            </li>
+                            <!-- END User Dropdown -->
+                    </ul>
+                    <!-- END Right Header Navigation -->
+                </header>
+                <!-- END Header -->
+                <!-- Page content -->
+                <div id="page-content">
+                    <!-- First Row -->
+                    <div class="row">
+                        <div class="block full" style="background-color:#f7f7f7 !important;">
+                            <!-- Block Tabs Title -->
+                            <div class="block-title">
+                                <div class="block-options pull-right" style="padding:0px !important;">
+                                    <div id="timedate" style="padding-right:4px;margin-top:-1px;">
+                                        <small>
+                                            <small id="mon" style="color:#999;">January</small>
+                                            <small id="d" style="color:#999;">1</small>,
+                                            <small id="y" style="color:#999;">0</small>
+                                            <br />
+                                            <small id="h" style="color:#999;">12</small> :
+                                            <small id="m" style="color:#999;">00</small>:
+                                            <small id="s" style="color:#999;">00</small>:
+                                            <small id="mi" style="color:#999;">000</small>
+                                        </small>
+                                    </div>
+                                </div>
+                                <ul class="nav nav-tabs" data-toggle="tabs">
+                                    <li class="active">
+                                        <a href="#block-tabs-home">Welcome</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#block-tabs-news">News & Social</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#block-tabs-robinhood">Robinhood</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#block-tabs-coinbase">Coinbase</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END Block Tabs Title -->
+
+                            <!-- Tabs Content -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="block-tabs-home" style="min-height:500px">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <a href="javascript:notReady()" class="widget">
+                                                <div class="widget-content themed-background-success text-light-op">
+                                                    <i class="fa fa-fw fa-chevron-right"></i>
+                                                    <strong>Balance of Accounts</strong>
+                                                </div>
+                                                <div class="widget-content themed-background-muted text-center">
+                                                    <i class="fa fa-dollar fa-3x text-success"></i>
+                                                </div>
+                                                <div class="widget-content text-center">
+                                                    <h2 class="widget-heading text-dark">
+                                                        <h2 class="text-info animation-fadeInQuick">Coming
+                                                            <small>soon!</small>
+                                                        </h2>
+                                                    </h2>
+                                                </div>
+                                                <div class="widget-content themed-background-muted text-dark text-center">
+                                                    <strong>Wealth Management</strong> Options
+                                                </div>
+                                                <div class="widget-content">
+                                                    <div class="row text-center">
+                                                        <div class="col-xs-6">
+                                                            <h3 class="widget-heading">
+                                                                <i class="gi gi-up_arrow text-success"></i>
+                                                                <br>
+                                                                <small>Gain</small>
+                                                            </h3>
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <h3 class="widget-heading">
+                                                                <i class="gi gi-down_arrow text-danger"></i>
+                                                                <br>
+                                                                <small>Loss</small>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');this.blur();" class="widget">
+                                                <div class="widget-content text-center">
+                                                    <img src="{{photo}}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
+                                                    <h2 class="widget-heading h3 text-muted">{{username}}</h2>
+                                                </div>
+                                                <div class="widget-content themed-background-muted text-dark text-center">
+                                                    {{#if isPremium}}
+                                                    <i class="hi hi-star"></i>
+                                                    <strong>Premium</strong> Account {{else}}
+                                                    <strong>Free</strong> Account {{/if}}
+                                                </div>
+                                                <div class="widget-content">
+                                                    <div class="row text-center">
+                                                        <div class="col-xs-6">
+                                                            <h3 class="widget-heading">
+                                                                <i class="fi fi-pdf text-warning"></i>
+                                                                <br>
+                                                                <small>Download a statement</small>
+                                                            </h3>
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <h3 class="widget-heading">
+                                                                <i class="gi gi-charts text-primary"></i>
+                                                                <br>
+                                                                <small>Overall portfolio accumulation</small>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <!-- Info Carousel Block -->
+                                            <div class="block">
+                                                <!-- Info Carousel Title -->
+                                                <div class="block-title">
+                                                    <h2>Quick News -
+                                                        <b>Bloomberg</b>
+                                                    </h2>
+                                                    <small style="float:right;padding:12px;">
+                                                        <span class="label label-info">
+                                                            <i class="hi hi-volume-up" data-toggle="tooltip" data-placement="left"
+                                                                title="Read me the news."></i>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                                <!-- END Info Carousel Title -->
+
+                                                <!-- Info Carousel Content -->
+                                                <div class="block-content-full">
+                                                    <div id="info-carousel" class="carousel slide remove-margin" data-ride="carousel" data-interval="4000">
+                                                        <!-- Indicators -->
+                                                        <ol class="carousel-indicators">
+                                                            <li data-target="#info-carousel" data-slide-to="0" class="active"></li>
+                                                            <li data-target="#info-carousel" data-slide-to="1" class=""></li>
+                                                            <li data-target="#info-carousel" data-slide-to="2" class=""></li>
+                                                            <li data-target="#info-carousel" data-slide-to="3" class=""></li>
+                                                        </ol>
+                                                        <!-- END Indicators -->
+
+                                                        <!-- Wrapper for slides -->
+                                                        <div class="carousel-inner">
+                                                            <div class="item active">
+                                                                <img src="https://cdn.dribbble.com/users/69182/screenshots/2179253/animated_loading__by__amiri.gif" alt="image" id="articleImage1">
+                                                                <div class="carousel-caption">
+                                                                    <h3>
+                                                                        <strong id="articleTitle1">Loading...</strong>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item">
+                                                                <img src="https://cdn.dribbble.com/users/69182/screenshots/2179253/animated_loading__by__amiri.gif" alt="image" id="articleImage2">
+                                                                <div class="carousel-caption">
+                                                                    <h3>
+                                                                        <strong id="articleTitle2">Loading...</strong>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item">
+                                                                <img src="https://cdn.dribbble.com/users/69182/screenshots/2179253/animated_loading__by__amiri.gif" alt="image" id="articleImage3">
+                                                                <div class="carousel-caption">
+                                                                    <h3>
+                                                                        <strong id="articleTitle3">Loading...</strong>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item">
+                                                                <img src="https://cdn.dribbble.com/users/69182/screenshots/2179253/animated_loading__by__amiri.gif" alt="image" id="articleImage4">
+                                                                <div class="carousel-caption">
+                                                                    <h3>
+                                                                        <strong id="articleTitle4">Loading...</strong>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- END Wrapper for slides -->
+
+                                                        <!-- Controls -->
+                                                        <a class="left carousel-control" href="#info-carousel" data-slide="prev">
+                                                            <span>
+                                                                <i class="fa fa-chevron-left"></i>
+                                                            </span>
+                                                        </a>
+                                                        <a class="right carousel-control" href="#info-carousel" data-slide="next">
+                                                            <span>
+                                                                <i class="fa fa-chevron-right"></i>
+                                                            </span>
+                                                        </a>
+                                                        <!-- END Controls -->
+                                                    </div>
+                                                </div>
+                                                <!-- END Info Carousel Content -->
+                                            </div>
+                                            <!-- END Info Carousel Block -->
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive" style="padding-top:10px;">
+
+                                        <table id="example-datatable" class="table table-striped table-bordered table-vcenter dataTable no-footer" role="grid" aria-describedby="example-datatable_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="text-center sorting_asc" style="width: 49px;" tabindex="0" aria-controls="example-datatable" rowspan="1" colspan="1"
+                                                        aria-sort="ascending" aria-label="ID: activate to sort column descending">Account</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example-datatable" rowspan="1" colspan="1" aria-label="User: activate to sort column ascending"
+                                                        style="width: 377px;">Quantity & Price</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example-datatable" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending"
+                                                        style="width: 793px;">Date</th>
+                                                    <th style="width: 119px;" class="sorting" tabindex="0" aria-controls="example-datatable" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Status</th>
+                                                    <th class="text-center sorting_disabled" style="width: 74px;" rowspan="1" colspan="1" aria-label="">
+                                                        <i class="fa fa-flash"></i>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr role="row" class="odd">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/coinbase_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-warning">1 BTC @ $6,100</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-info">Pending</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="even">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/coinbase_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-warning">1 BTC @ $6,050</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:09</td>
+                                                    <td>
+                                                        <span class="label label-success">Complete</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="odd">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/robinhood_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-success">3 AMD @ $12.10</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-danger">Cancelled</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="even">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/coinbase_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-success">2 BTC @ $5,902</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-info">Pending</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="odd">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/robinhood_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-success">12 AMD @ $3.62</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-info">Pending</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="even">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/robinhood_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-success">2 AMZN @ $802.66</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-success">Complete</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="odd">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/robinhood_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-success">1 AMZN @ $742.25</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-info">Pending</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="even">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/coinbase_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-warning">3 BTC @ $5,808.01</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-danger">Cancelled</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="odd">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/robinhood_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-success">3 GPN @ $75.73</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-success">Complete</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr role="row" class="even">
+                                                    <td class="text-center sorting_1">
+                                                        <img src="img/coinbase_small.png" style="max-width:20px;">
+                                                    </td>
+                                                    <td>
+                                                        <strong class="label label-warning">0.0054 BTC @ $750.22</strong>
+                                                    </td>
+                                                    <td>October 27th, 2017 - 11:27</td>
+                                                    <td>
+                                                        <span class="label label-success">Complete</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                                            data-original-title="Cancel Order">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="block-tabs-news" style="min-height:500px">
+                                    <center>
+                                        <h1 class="text-info animation-fadeInQuick" style="padding-top:15%;font-size:56pt;">Coming
+                                            <small>soon!</small>
+                                        </h1>
+
+                                    </center>
+                                </div>
+                                <!--  hood Begin-->
+                                <div class="tab-pane" id="block-tabs-robinhood" style="min-height:500px">
+                                        <div class="col-md-12 block">
+                                            <div class="block-title">
+                                                <div class="block-options pull-right">
+                                                    {{#if robinhood_user }}
+                                                    <a id="robinStatus" href="javascript:void(0)" class="btn btn-effect-ripple btn-default toggle-bordered enable-tooltip" data-toggle="button"
+                                                        title="" style="overflow: hidden; position: relative; margin-top:2px !important; padding-bottom:2px;" data-original-title="Click 'Login' to begin trading with your Robinhood account.">Account Not Logged In</a>
+                                                    {{else}}
+                                                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default toggle-bordered enable-tooltip" data-toggle="button"
+                                                        title="" style="overflow: hidden; position: relative; margin-top:2px !important; padding-bottom:2px;" data-original-title="Enter your Robinhood credentials and we will do the rest!">No Account Connected</a>
+                                                    {{/if}}
+                                                    
+                                                </div>
+                                                <h2>Robinhood</h2>
+                                            </div>
+                                            <div id="robinContent">
+                                            {{#if robinhood_user }}
+                                            <center><button class="btn btn-lg btn-success" onclick="javascript:loginRobin()">Login</button></center><br />
+                                            {{else}}
+                                            <form name="register" action="/robinhood/register" method="post" class="form-horizontal form-bordered">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label" for="example-hf-email">Username</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="robinhood_user" name="robinhood_user" class="form-control">
+                                                        <span class="help-block">Please enter your username</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label" for="example-hf-password">Password</label>
+                                                    <div class="col-md-9">
+                                                        <input type="password" id="robinhood_password" name="robinhood_password" class="form-control">
+                                                        <span class="help-block">Please enter your password</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group form-actions">
+                                                    <div class="col-md-9 col-md-offset-3">
+                                                        <button type="submit" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;">Submit</button>
+                                                        <button type="reset" class="btn btn-effect-ripple btn-danger" style="overflow: hidden; position: relative;">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            {{/if}}
+                                            </div>
+                                            <div id="robinChallengeContent" style="display: none;">
+                                            <form name="challenge" action="/robinhood/challenge" method="post" class="form-horizontal form-bordered">
+                                                <input type="hidden" id="robinhood_challenge_id" name="challenge_id" />
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label" for="example-hf-password">Challenge Code</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="robinhood_challenge_code" name="challenge_code" class="form-control" />
+                                                        <span class="help-block">Please enter your challenge code</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group form-actions">
+                                                    <div class="col-md-9 col-md-offset-3">
+                                                        <button type="button" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            </div>
+                                            <div id="robinData" style="display: none;">
+                                                TODO:  Logged in and authed<br />
+                                                <button id="robinLogout" type="button" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;">Logout</button>
+                                            </div>
+                                        </div>
+                                </div>
+                                <!-- Robinhood End-->
+
+                                <div class="tab-pane" id="block-tabs-coinbase" style="min-height:500px">
+                                    <div class="col-md-6 block">
+                                        <center>
+                                            <h1 class="text-info" style="padding-top:15%;font-size:56pt;">Watchlist</small>
+                                            </h1>
+                                        </center>
+                                        TODO
+                                    </div>
+                                    <div class="col-md-6 block">
+                                        <center>
+                                            <h1 class="text-info" style="padding-top:15%;font-size:56pt;">Stocks</small>
+                                            </h1>
+                                        </center>
+                                        TODO
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END Tabs Content -->
+                        </div>
+                    </div>
+                    <!-- END Row -->
+                </div>
+                <!-- END Page Content -->
+            </div>
+            <!-- END Main Container -->
+        </div>
+        <!-- END Page Container -->
+
+    </div>
+    <!-- END Page Wrapper -->
+
+    <!-- jQuery, Bootstrap, jQuery plugins and Custom JS code -->
+    <script src="../backend/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="../backend/js/vendor/bootstrap.min.js"></script>
+    <script src="../backend/js/plugins.js"></script>
+    <script src="../backend/js/app.js"></script>
+    <script src="../backend/js/pages/uiWidgets.js"></script>
+    <script src="../backend/js/pages/uiTables.js"></script>
+    <script>$(function () { UiTables.init(); });</script>
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="../backend/js/pages/readyDashboard.js"></script>
+    <script src="../backend/js/pages/uiProgress.js"></script>
+    <!-- Works below Robinhood React JS-->
+    <script src="//fb.me/react-0.14.3.min.js"></script>
+    <script src="//fb.me/react-dom-0.14.3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <script src="modules/tixSearch.js"></script>
+    
+    <!-- Load chart deps -->
+    <script src="modules/charts/amcharts.js"></script>
+    <script src="modules/charts/serial.js"></script>
+    <script src="modules/charts/export.min.js"></script>
+    <link rel="stylesheet" href="modules/charts/css/export.css" type="text/css" media="all" />
+    <script src="modules/charts/light.js"></script>
+    <script src="modules/robinhood.js"></script>
+    <script src="modules/tickers.js"></script>
+    <script src="modules/news.js"></script>
+    <script>
+            function reportBug() {
+                $("#reportBug").modal()
+            }
+            function suggestions() {
+                $("#suggestions").modal()
+            }
+            function accountProblem() {
+                $("#accountProblem").modal()
+            }
+    </script>
+    <script>
+        // START CLOCK SCRIPT
+
+        Number.prototype.pad = function (n) {
+            for (var r = this.toString(); r.length < n; r = 0 + r);
+            return r;
+        };
+
+        function updateClock() {
+            var now = new Date();
+            var milli = now.getMilliseconds(),
+                sec = now.getSeconds(),
+                min = now.getMinutes(),
+                hou = now.getHours(),
+                mo = now.getMonth(),
+                dy = now.getDate(),
+                yr = now.getFullYear();
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var tags = ["mon", "d", "y", "h", "m", "s", "mi"],
+                corr = [months[mo], dy, yr, hou.pad(2), min.pad(2), sec.pad(2), milli];
+            for (var i = 0; i < tags.length; i++)
+                document.getElementById(tags[i]).firstChild.nodeValue = corr[i];
+        }
+
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
+        }
+
+        initClock()
+    // END CLOCK SCRIPT
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            getNews();
+            let token = localStorage.getItem('token');
+            $("form[name=register]").attr("action", "/robinhood/register?token=" + token);
+            $("form[name=challenge] button").on("click", function(ev) {
+                console.log("In click handler", ev);
+                ev.stopPropagation();
+                rhSubmitChallenge();
+            });
+            $("#robinLogout").on("click", function(ev) {
+                ev.stopPropagation();
+                localStorage.removeItem('robin_token');
+                $("#robinContent").show();
+                $("#robinChallengeContent").hide();
+                $("#robinData").hide();
+            });
+            // This line causes an error so do all initialization before this
+            ReadyDashboard.init();
+        });
+    </script>
+    <script>
+        function notReady() {
+            $.bootstrapGrowl("Coming soon!", {
+                ele: 'body', // which element to append to
+                type: 'warning', // ('success', 'info', 'warning', 'danger')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // in ms
+                allow_dismiss: true,
+                stackup_spacing: 10 // spacing between consecutively stacked growls
+            });
+        }
+        function robinSuccess() {
+            $.bootstrapGrowl("Logged into Robinhood", {
+                ele: 'body', // which element to append to
+                type: 'success', // ('success', 'info', 'warning', 'danger')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // in ms
+                allow_dismiss: true,
+                stackup_spacing: 10 // spacing between consecutively stacked growls
+            });
+        }
+        function robinFailure() {
+            $.bootstrapGrowl("Login failed! :(", {
+                ele: 'body', // which element to append to
+                type: 'danger', // ('success', 'info', 'warning', 'danger')
+                offset: { from: 'top', amount: 20 }, // 'top', or 'bottom'
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // in ms
+                allow_dismiss: true,
+                stackup_spacing: 10 // spacing between consecutively stacked growls
+            });
+        }
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/users/login';
+        }
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+    <script>
+
+        if (annyang) {
+            // Let's define our first command. First the text we expect, and then the function it should call
+            var commands = {
+                'Hunch': function () {
+                    speak('greeting');
+                },
+                'Read me the news': function () {
+                    speak("news");
+                },
+                'Which version is Hunch on': function () {
+                    speak("version");
+                },
+                'Do androids dream of electric sheep': function () {
+                    speak("bladerunner");
+                },
+                "What's the price of bitcoin": function () {
+                    speak("bitcoin");
+                },
+                "What's the price of litecoin": function () {
+                    speak("litecoin");
+                },
+                "What's the price of ethereum": function () {
+                    speak("ethereum");
+                }
+            }
+            function speak(context) {
+
+                var msg = new SpeechSynthesisUtterance();
+
+                if (context == "greeting") {
+                    msg.text = "Yes?";
+                } else if (context == "news") {
+                    msg.text = document.getElementById("articleTitle1").innerHTML + '. ' + document.getElementById("articleTitle2").innerHTML + '. ' + document.getElementById("articleTitle3").innerHTML + '. ' + document.getElementById("articleTitle4").innerHTML;
+                } else if (context == "version") {
+                    msg.text = "Hunch is on version 0.1.0, Alpha"
+                } else if (context == "bladerunner") {
+                    msg.text = "I've seen things you people wouldn't believe. Attack ships on fire off the shoulder of Orion. I watched C-beams glitter in the dark near the Tannhäuser Gate. All those moments will be lost in time, like tears in rain. Time to die."
+                } else if (context == "bitcoin") {
+                    msg.text = document.getElementById("btcPrice").innerHTML
+                } else if (context == "ethereum") {
+                    msg.text = document.getElementById("ethPrice").innerHTML
+                } else if (context == "litecoin") {
+                    msg.text = document.getElementById("ltcPrice").innerHTML
+                }
+
+                msg.rate = parseFloat(1.1);
+                msg.pitch = parseFloat(.95);
+                // var voices = speechSynthesis.getVoices();
+                // console.log(voices)
+                msg.voice = speechSynthesis.getVoices().filter(function (voice) { return voice.name == "Google UK English Female"; })[0];
+                // Queue this utterance.
+                window.speechSynthesis.speak(msg);
+                // Set up an event listener for when the 'speak' button is clicked.
+            }
+
+            // Add our commands to annyang
+            annyang.addCommands(commands);
+
+            // Start listening. You can call this here, or attach this call to an event, button, etc.
+            annyang.start();
+        }
+    </script>
+
+</body>
+
+
+<!-- MODALS -->
+<!-- Tix Search Modal -->
+<div class="modal fade" id="tixSearch" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="btn-group open" style="float:right;">
+                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default dropdown-toggle enable-tooltip" data-toggle="dropdown"
+                        title="" style="overflow: hidden; position: relative;" data-original-title="Options" aria-expanded="true">
+                        <span class="btn-ripple animate" style="height: 34px; width: 34px; top: 12px; left: -12.6406px;"></span>
+                        <i class="fa fa-exchange"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="hi hi-plus-sign pull-right"></i>
+                                Buy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="hi hi-minus-sign pull-right"></i>
+                                Sell
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-list fa-fw pull-right"></i>
+                                Add to watchlist
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <h4>
+                    <span class="glyphicon glyphicon-lock" id="tixTitle"></span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height:500px;">
+                <h2 id="tixHQ">Title</h2>
+                <p class="lead">
+                    Founded |
+                    <strong id="tixFounded"></strong>
+                    <br> Current CEO |
+                    <span id="tixCEO"></span>
+                </p>
+                <p id="tixDesc"></p>
+                <div class="col-md-6">
+                    Daily High
+                    <p class="label label-success" id="tixHigh"></p>
+                    <br> Daily Low
+                    <p class="label label-danger" id="tixLow"></p>
+                </div>
+                <div class="col-md-6">
+                    52-Week High
+                    <p class="label label-success" id="tix52High"></p>
+                    <br> 52-Week Low
+                    <p class="label label-danger" id="tix52Low"></p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+<!-- Bug Report Modal -->
+<div class="modal fade" id="reportBug" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body" style="min-height:500px;">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+<!-- END BUG REPORT MODAL -->
+
+<!-- Bug Report Modal -->
+<div class="modal fade" id="suggestions" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body" style="min-height:500px;">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+<!-- END BUG REPORT MODAL -->
+
+<!-- Bug Report Modal -->
+<div class="modal fade" id="accountProblem" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body" style="min-height:500px;">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+<!-- END BUG REPORT MODAL -->
+</div>
+</div>
+
+</html>
